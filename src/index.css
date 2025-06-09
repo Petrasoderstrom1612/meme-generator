@@ -8,9 +8,9 @@ body {
 }
 
 main {
-    margin-inline: auto;
-    padding: 36px;
-    max-width: 600px;
+  padding: 36px;
+  display: flex;
+  justify-content: center;
 }
 
 .header {
@@ -107,4 +107,11 @@ main {
 
 .laughing-duck{
     height: auto;
+}
+
+.main{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 600px;
 }
