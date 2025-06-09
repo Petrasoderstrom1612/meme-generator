@@ -1,6 +1,21 @@
 import React from 'react'
 
 const Body = () => {
+const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    imgUrl: "http://i.imgflip.com/1bij.jpg"
+    })
+
+const {topText, bottomText, imgUrl} = meme
+
+const displayMeme = (event) => {
+  const {name, value} = event.currentTarget
+  setMeme(prevMeme => ({
+    ...prevMeme, [name]: value //name is used as a key in update
+  }));
+}
+
   return (
         <main>
             <div className="main">
@@ -8,25 +23,27 @@ const Body = () => {
                     <label>Top Text
                         <input
                             type="text"
-                            placeholder="One does not simply"
                             name="topText"
+                            onChange={displayMeme}
+                            value={topText}
                         />
                     </label>
 
                     <label>Bottom Text
                         <input
                             type="text"
-                            placeholder="Walk into Mordor"
                             name="bottomText"
+                            value={bottomText}
+                            onChange={displayMeme}
                         />
                     </label>
                     <button>Get a new meme image 🖼</button>
                 </div>
                 <div>
                     <div className="meme">
-                        <img src="http://i.imgflip.com/1bij.jpg" />
-                        <p className="top">One does not simply</p>
-                        <p className="bottom">Walk into Mordor</p>
+                        <img src={imgUrl} />
+                        <p className="top">{topText}</p>
+                        <p className="bottom">{bottomText}</p>
                     </div>
                 </div>
             </div>
