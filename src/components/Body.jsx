@@ -4,8 +4,10 @@ const Body = () => {
 const [meme, setMeme] = React.useState({
     topText: "",
     bottomText: "",
-    imgUrl: "http://i.imgflip.com/1bij.jpg"
+    imgUrl: "https://html.com/wp-content/uploads/flamingo.webp"
     })
+
+    console.log("hi")
 
 const {topText, bottomText, imgUrl} = meme
 
