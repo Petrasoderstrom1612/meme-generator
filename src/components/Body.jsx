@@ -14,7 +14,7 @@ const {topText, bottomText, imgUrl} = meme
 const displayMeme = (event) => {
   const {name, value} = event.currentTarget
   setMeme(prevMeme => ({
-    ...prevMeme, [name]: value //name is used as a key in update
+    ...prevMeme, [name]: value //name is used as a key in update object
   }));
 }
 
