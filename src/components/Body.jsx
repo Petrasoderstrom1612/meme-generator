@@ -4,8 +4,10 @@ const Body = () => {
 const [meme, setMeme] = React.useState({ //for meme text
     topText: "",
     bottomText: "",
+    randomImg: "https://i.imgflip.com/30b1gx.jpg",
+    alt: "meme image"
     })
-const [selectedMeme, setselectedMeme] = React.useState([]) //for meme img
+const [allMemes, setallMemes] = React.useState([]) //for meme img
 
 const {topText, bottomText} = meme
 
@@ -16,26 +18,21 @@ const displayMeme = (event) => { //get the values the user is typing in input fi
   }));
 }
 
-const returnRandomNr = () => {
-    let random = Math.floor(Math.random() * 101)
-    return random
-}
-
-const getNewImage = () => {
-    fetch("https://api.imgflip.com/get_memes")
-    .then(res=>res.json())
-    .then(data => {setselectedMeme(data.data.memes[returnRandomNr()])
-        console.log(data.data.memes)
-    })
-}
-
 React.useEffect(()=>{
-    getNewImage()
+        fetch("https://api.imgflip.com/get_memes")
+        .then(res=>res.json())
+        .then(data => {setallMemes(data.data.memes)
+            console.log(data.data.memes)
+        })
 },[])
 
-console.log(returnRandomNr())
-console.log("selectedMeme", selectedMeme)
-
+const getRandomImg = () => {
+    let random = Math.floor(Math.random() * allMemes.length)
+     setMeme(prevMeme => (
+        {...prevMeme, randomImg: allMemes[random].url, alt: allMemes[random].name}
+    ))
+    console.log(meme)
+}
 
 
   return (
@@ -59,11 +56,11 @@ console.log("selectedMeme", selectedMeme)
                             onChange={displayMeme}
                         />
                     </label>
-                    <button onClick={getNewImage}>Get a new meme image 🖼</button>
+                    <button onClick={getRandomImg}>Get a new meme image 🖼</button>
                 </div>
                 <div>
                     <div className="meme">
-                        <img src={selectedMeme.url} alt={selectedMeme.name}/>
+                        <img src={meme.randomImg} alt={meme.alt}/>
                         <p className="top">{topText}</p>
                         <p className="bottom">{bottomText}</p>
                     </div>
